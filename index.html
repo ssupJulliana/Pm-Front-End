@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskSphere IT Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-bar">
+    <div class="top-left">
+      <img src="img/TaskSphere IT Logo.png" alt="TaskSphere IT Logo" class="header-logo" />
+    </div>
+    <div class="top-right">
+      <label class="toggle-switch">
+        <input type="checkbox" id="modeToggle" />
+        <span class="slider">
+          <span class="toggle-label">TEAM</span>
+        </span>
+      </label>
+      <img src="img/Notification Icon.png" alt="Notification Icon" class="notification-icon" />
+      <img src="img/Profile Icon.png" alt="Profile Icon" class="profile-icon" />
+    </div>
+  </header>
+
+  <!-- Page Container -->
+  <div class="page-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><img src="img/Dashboard Icon.png" alt="Dashboard Icon" />Dashboard</li>
+          <li><img src="img/Tasks Icon.png" alt="Tasks Icon" />Tasks</li>
+          <li><img src="img/Adviser Icon.png" alt="Adviser Icon" />Adviser Tasks</li>
+          <li><img src="img/Tasks Board Icon.png" alt="Tasks Board Icon" />Tasks Board</li>
+          <li><img src="img/Tasks Record Icon.png" alt="Tasks Record Icon" />Tasks Record</li>
+          <li><img src="img/Events Icon.png" alt="Events Icon" />Events</li>
+        </ul>
+      </nav>
+      <div class="sign-out">
+        <img src="img/Sign out Icon.png" alt="Sign Out Icon" />
+        Sign Out
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Components will be loaded here -->
+      <div id="upcoming-tasks-container"></div>
+
+      <section class="summary">
+        <div id="weekly-summary-container"></div>
+        <div id="team-progress-container"></div>
+
+        <!-- Static calendar markup here -->
+        <div id="calendar-container">
+          <section class="calendar">
+             <h2>Calendar</h2>
+            <div class="calendar-header">
+              <button class="prev-month" disabled>&#8249;</button>
+              <span class="month-year">June 2025</span>
+              <button class="next-month" disabled>&#8250;</button>
+            </div>
+            <div class="calendar-body">
+              <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+              </div>
+              <div class="days">
+                <!-- June 2025 starts on Sunday, so no empty days before -->
+                <div class="day">1</div>
+                <div class="day">2</div>
+                <div class="day">3</div>
+                <div class="day">4</div>
+                <div class="day">5</div>
+                <div class="day">6</div>
+                <div class="day">7</div>
+
+                <div class="day">8</div>
+                <div class="day">9</div>
+                <div class="day active">10</div> <!-- example active day -->
+                <div class="day">11</div>
+                <div class="day">12</div>
+                <div class="day">13</div>
+                <div class="day">14</div>
+
+                <div class="day">15</div>
+                <div class="day">16</div>
+                <div class="day">17</div>
+                <div class="day">18</div>
+                <div class="day">19</div>
+                <div class="day">20</div>
+                <div class="day">21</div>
+
+                <div class="day">22</div>
+                <div class="day">23</div>
+                <div class="day">24</div>
+                <div class="day">25</div>
+                <div class="day">26</div>
+                <div class="day">27</div>
+                <div class="day">28</div>
+
+                <div class="day">29</div>
+                <div class="day">30</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">  
+    <div class="footer-inner">
+      <span>© 2025 TaskSphere IT - All Rights Reserved</span>
+      <span>Terms of Service</span>
+    </div>
+  </footer>
+
+  <!-- Load JS -->
+  <script src="components-loader.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById('modeToggle');
+      const label = document.querySelector('.toggle-label');
+      if (toggle && label) {
+        toggle.addEventListener('change', () => {
+          label.textContent = toggle.checked ? 'SOLO' : 'TEAM';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
