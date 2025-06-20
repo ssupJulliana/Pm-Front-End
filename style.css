@@ -8,7 +8,7 @@
 
 html, body {
   height: 100%;
-  background: #f5f5f5;
+  background: #fff;
 }
 
 body {
@@ -41,31 +41,66 @@ body {
 }
 
 .notification-icon, .profile-icon {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 
 .toggle-switch {
-  display: flex;
-  align-items: center;
+  position: relative;
+  display: inline-block;
+  width: 65px;
+  height: 22px;
+  user-select: none;
 }
 
 .toggle-switch input {
-  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
 }
 
 .slider {
-  background-color: #ddd;
-  border-radius: 12px;
-  padding: 3px 10px;
-  font-size: 14px;
+  position: relative;
+  background-color: #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  padding: 0 5px;
+  font-size: 10px; /* Adjust to match icon size */
+  font-weight: 600;
+  color: black;
 }
 
-.toggle-label {
-  font-weight: bold;
-  color: #000;
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  top: 0;
+  left: -5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: left 0.3s ease;
+  z-index: 1;
 }
+
+/* Checked state */
+.toggle-switch input:checked + .slider {
+  background-color: #4caf50;
+}
+
+.toggle-switch input:checked + .slider::before {
+  left: 47px;
+}
+
 
 /* PAGE LAYOUT */
 .page-container {
@@ -82,9 +117,32 @@ body {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   color: #3B0304;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.sidebar-top {
+  display: flex;
+  justify-content: flex-end; /* Push the button to the right */
+  padding: 5px 10px;
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 10px;  /* adjust to your liking */
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10;
+}
+
+.sidebar-toggle-btn img {
+  width: 15px;  /* adjust size as needed */
+  height: 15px;
 }
 
 .sidebar nav ul {
@@ -97,7 +155,7 @@ body {
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: normal;
   font-size: 16px;
 }
 
@@ -107,12 +165,16 @@ body {
 }
 
 .sign-out {
+  position: absolute;
+  bottom: 30px;            
+  left: 20px;              
+  right: 20px;            
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 16px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: normal;
 }
 
 .sign-out img {
@@ -129,15 +191,16 @@ body {
 
 /* UPCOMING TASKS */
 .upcoming-tasks {
-  background: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;           /* Remove internal spacing */
+  background: none;     /* Remove white background */
+  border-radius: 0;     /* Remove curved corners */
+  box-shadow: none;    
 }
 
 .upcoming-tasks h2 {
   text-align: left; /* Align Upcoming Tasks title left */
   margin-bottom: 15px;
+  color: #3B0304;
 }
 
 .task-cards {
@@ -148,19 +211,44 @@ body {
 }
 
 .card {
-  padding: 10px;
-  border-radius: 20px;
   width: 150px;
-  color: white;
-  font-weight: bold;
-  background: #ccc;
+  border: 1px solid #B2B2B2; 
+  border-radius: 20px;
+  background: white;
   box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-  line-height: 1.3;
+  overflow: hidden;
+  font-weight: normal;
+  color: #000;
 }
 
-.card.green { background-color: #7ba850; }
-.card.yellow { background-color: #f4c542; }
-.card.blue { background-color: #449dd1; }
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;             /* Small space between icon and text */
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  color: white;
+}
+
+.task-member-icon {
+  width: 15px;          /* Small size */
+  height: 15px;
+  flex-shrink: 0;       /* Prevents it from squishing */
+}
+
+/* The lower part with details */
+.card-body {
+  padding: 10px;
+  background: white;
+  color: #333;
+}
+
+/* Color styles for header */
+.card.green .card-header { background-color: #7ba850; }
+.card.yellow .card-header { background-color: #f4c542; }
+.card.blue .card-header { background-color: #449dd1; }
+
 
 /* SUMMARY SECTION */
 .summary {
@@ -175,6 +263,7 @@ body {
 .team-progress {
   background: #fff;
   padding: 20px;
+  border: 1px solid #B2B2B2; 
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
@@ -191,6 +280,7 @@ body {
 .weekly-summary > h2 {
   text-align: left;
   margin-bottom: 15px;
+  color: #3B0304;
 }
 
 /* Team Progress title aligned left and on top */
@@ -204,12 +294,13 @@ body {
 .team-progress > h2 {
   text-align: left;
   margin-bottom: 15px;
+  color: #3B0304;
 }
 
 /* CHART WRAPPER */
 .bar-chart-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 25px;
   margin-top: 30px;
@@ -223,11 +314,20 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  font-size: 16px;
-  color: #333;
+  font-size: 13px;
+  color: #3B0304;
   font-weight: bold;
   position: relative;
   padding-right: 10px;
+}
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 25px;
+  height: 100%;
+  position: relative;
+  padding-bottom: 10px;
 }
 
 .bar-scale::after {
@@ -240,16 +340,18 @@ body {
   background-color: #7b0000;
 }
 
-/* BARS */
-.bar-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 25px;
-  height: 100%;
-  position: relative;
-  padding-bottom: 10px;
+.bar-chart::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -25px;
+  right: 0;
+  height: 2px;
+  width: 120%;
+  background-color: #7b0000;
 }
 
+/* BARS */
 .bar {
   width: 15px;
   border-radius: 20px;
@@ -261,36 +363,26 @@ body {
 .bar.purple { background-color: #9c59b6; }
 .bar.red { background-color: #e74c3c; }
 
-.bar-chart::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: calc(100% + 2px);
-  background-color: #7b0000;
-  transform: translateX(-2px);
-}
-
 /* DOT LABELS */
-.bar-labels,
-.donut-labels {
+.weekly-summary .bar-labels {
   display: flex;
   flex-direction: column;
   gap: 15px;
   font-size: 14px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
+  margin-top: 21px; /* 👈 Adjust this to align visually */
 }
 
+
 /* Dot label with small color circle before text */
-.dot-label {
+.weekly-summary .dot-label {
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: #3B0304;
 }
 
 /* Small colored circle before each label */
@@ -378,7 +470,7 @@ body {
   position: relative;
   font-size: 35px;
   font-weight: bold;
-  color: #333;
+  color: #3B0304;
   z-index: 2;
 }
 
@@ -390,7 +482,7 @@ body {
   font-size: 14px;
   justify-content: center;
   align-items: flex-start;
-  color: #333;
+  color: #3B0304;
 }
 
 /* Dot label with small color circle before text */
@@ -421,12 +513,13 @@ body {
 /* Calendar Styles */
 .calendar {
   background: #fff;
+  border: 1px solid #B2B2B2; 
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 410px;
-  min-height: 350px; 
-  padding: 30px;      
+  height: 350px; 
+  padding: 20px;      
 
   display: flex;
   flex-direction: column;
@@ -436,15 +529,57 @@ body {
 .calendar > h2 {
   text-align: left;
   margin-bottom: 15px;
+  color: #3B0304;
 }
 
 .calendar-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 18px;
+  flex-direction: column; /* stack children vertically */
+  align-items: stretch; /* align text to the left */
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
+  gap: 6px; /* space between Calendar and June 2025 */
+}
+
+.month-nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.month-year {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* spacing between text and arrow */
+  cursor: pointer; /* shows it’s clickable */
+  color: #000;
+}
+
+.arrow-down {
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+}
+
+.nav-buttons {
+  align-self: flex-end; /* aligns the arrows to the right */
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  font-size: 15px;   /* Increase or decrease this to resize arrows */
+  font-weight: bold; /* Make arrows bolder and modern */
+  cursor: pointer;
+  padding: 0 8px;    /* Add horizontal padding for easier clicking */
+  line-height: 1;
+  color: #3B0304;    /* Match the calendar color */
+  transition: color 0.3s ease;
 }
 
 .calendar-body {
@@ -458,7 +593,6 @@ body {
   text-align: center;
   font-size: 14px;
   font-weight: 600;
-  background: #f0f0f0;
   padding: 5px 0;
 }
 
@@ -470,9 +604,14 @@ body {
 }
 
 .day {
-  padding: 10px;
+  width: 40px;         /* Set fixed size */
+  height: 40px;
+  line-height: 40px;   /* Center the text vertically */
+  padding: 0;          /* Remove padding so it doesn't stretch */
+  margin: auto;        /* Optional: center in grid cell */
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;  /* Center text horizontally */
   transition: background-color 0.3s;
 }
 
@@ -485,9 +624,76 @@ body {
 }
 
 .day.active {
-  background-color: #7ba850;
+  background-color: #3B0304;
   color: white;
+  border-radius: 50%;  /* Makes it a circle */
 }
+
+.recent-tasks {
+  background: #fff;
+  border: 1px solid #B2B2B2;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 30px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.recent-tasks > h2 {
+  margin-bottom: 15px;
+  color: #3B0304;
+  text-align: left;
+  font-size: 20px;
+}
+
+.recent-tasks-table {
+  border-collapse: separate; /* separate borders */
+  border-spacing: 0;         /* no spacing */
+  width: 100%;               /* full width */
+}
+
+/* Remove all borders */
+.recent-tasks-table th,
+.recent-tasks-table td {
+  border: none;
+}
+
+/* Keep header text bold and colored */
+.recent-tasks-table thead th {
+  font-weight: bold;
+  color: #3B0304;
+  background-color: transparent; /* Remove previous borders */
+}
+
+.recent-tasks-table tbody tr:nth-child(even) td {
+  background-color: #F0F0F0;
+}
+
+/* Shade the entire header row */
+.recent-tasks-table thead tr {
+  background-color: #F0F0F0;
+}
+
+/* Optional: Keep padding and alignment consistent */
+.recent-tasks-table th,
+.recent-tasks-table td {
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.status.to-review { background-color: #007bff; }
+.status.in-progress { background-color: #28a745; }
+.status.to-do { background-color: #ffc107; }
 
 /* FOOTER */
 .footer {
